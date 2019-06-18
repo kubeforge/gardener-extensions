@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shoot--foo--bar
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: core-kubevirt
+  namespace: shoot--foo--bar
+type: Opaque
+data:
+# kubeconfig: base64(kubeconfig)
+# namespace: base64(namespace)
+
+---
+apiVersion: extensions.gardener.cloud/v1alpha1
+kind: Cluster
+metadata:
+  name: shoot--foo--bar
+spec:
+  cloudProfile:
+    apiVersion: garden.sapcloud.io/v1beta1
+    kind: CloudProfile
+    spec:
+      kubevirt:
+        keystoneURL: https://localhost
+        # dnsServers:
+        # - 1.1.1.1
+  seed:
+    apiVersion: garden.sapcloud.io/v1beta1
+    kind: Seed
+  shoot:
+    apiVersion: garden.sapcloud.io/v1beta1
+    kind: Shoot
+    status:
+      lastOperation:
+        state: Succeeded
+
+---
+apiVersion: extensions.gardener.cloud/v1alpha1
+kind: Infrastructure
+metadata:
+  name: infrastructure
+spec:
+  type: kubevirt
+  region: eu-de-1
+  secretRef:
+    name: core-kubevirt
+    namespace: shoot--foo--bar
+  providerConfig:
+    apiVersion: kubevirt.provider.extensions.gardener.cloud/v1alpha1
+    kind: InfrastructureConfig

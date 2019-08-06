@@ -1,0 +1,36 @@
+{{- range $index, $machineClass := .Values.machineClasses }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $machineClass.name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    garden.sapcloud.io/purpose: machineclass
+type: Opaque
+data:
+  namespace: {{ $machineClass.secret.namespace | b64enc }}
+  kubeconfig: {{ $machineClass.secret.kubeconfig | b64enc }}
+---
+apiVersion: machine.sapcloud.io/v1alpha1
+kind: KubeVirtMachineClass
+metadata:
+  name: {{ $machineClass.name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  region: {{ $machineClass.region }}
+  availabilityZone: {{ $machineClass.availabilityZone }}
+  cores: {{ $machineClass.cores }}
+  memory: {{ $machineClass.memory }}
+  keyName: {{ $machineClass.keyName }}
+  imageName: {{ $machineClass.imageName }}
+  networks: {{ $machineClass.networks }}
+  podNetworkCidr: {{ $machineClass.podNetworkCidr }}
+  secretRef:
+    name: {{ $machineClass.name }}
+    namespace: {{ $.Release.Namespace }}
+{{- if $machineClass.tags }}
+  tags:
+{{ toYaml $machineClass.tags | indent 4 }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,15 @@
+machineClasses:
+- name: class-1
+  region: europe-1
+  availabilityZone: europe-1a
+  cores: 2
+  memory: 4
+  imageName: coreos-v1.0
+  networks: 426428cd-5e88-4005-9fad-9555d4dfd0fb
+  podNetworkCidr: 100.96.0.0/11
+  tags:
+    kubernetes.io/cluster/shoot-crazy-botany: "1"
+    kubernetes.io/role/node: "1"
+  secret:
+    namespace: my-namespace
+    kubeconfig: my-kubeconfig

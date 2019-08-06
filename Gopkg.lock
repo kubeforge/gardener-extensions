@@ -277,7 +277,7 @@
   revision = "0.3.0"
 
 [[projects]]
-  digest = "1:be08b3a88137d497fc3008eaadba7b05d151c6106ebd3d1df54af7b07320562a"
+  digest = "1:b7b3c3b912a51e0dabd64cb8888ff668e3d332284d4458d3ad7db31b93f0a794"
   name = "github.com/gardener/machine-controller-manager"
   packages = [
     "pkg/apis/machine",
@@ -285,7 +285,8 @@
     "pkg/client/clientset/versioned/scheme",
   ]
   pruneopts = "NUT"
-  revision = "119056ee3fddc24a33b206ba89958da30535bd02"
+  revision = "6ed76483c551ac8d66e24a363730d03e2dfefee6"
+  source = "github.com/kubeforge/machine-controller-manager"
 
 [[projects]]
   digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
@@ -1578,6 +1579,7 @@
     "k8s.io/api/admissionregistration/v1beta1",
     "k8s.io/api/apps/v1",
     "k8s.io/api/core/v1",
+    "k8s.io/api/networking/v1",
     "k8s.io/api/policy/v1beta1",
     "k8s.io/api/rbac/v1",
     "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1",

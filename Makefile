@@ -188,6 +188,19 @@ start-provider-packet:
 		--webhook-config-mode=url \
 		--webhook-config-url=$(WEBHOOK_CONFIG_URL)
 
+.PHONY: start-provider-kubevirt
+start-provider-kubevirt:
+	@LEADER_ELECTION_NAMESPACE=garden go run \
+		-ldflags $(LD_FLAGS) \
+		./controllers/provider-kubevirt/cmd/gardener-extension-provider-kubevirt \
+		--config-file=./controllers/provider-packet/example/00-componentconfig.yaml \
+		--ignore-operation-annotation=$(IGNORE_OPERATION_ANNOTATION) \
+		--leader-election=$(LEADER_ELECTION) \
+		--webhook-config-server-host=0.0.0.0 \
+		--webhook-config-server-port=8443 \
+		--webhook-config-mode=url \
+		--webhook-config-url=$(WEBHOOK_CONFIG_URL)
+
 .PHONY: start-certificate-service
 start-certificate-service:
 	@LEADER_ELECTION_NAMESPACE=garden go run \
